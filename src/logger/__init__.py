@@ -5,7 +5,7 @@ from datetime import datetime
 LOG_DIRS = "logs"
 os.makedirs(LOG_DIRS, exist_ok=True)
 
-def configure_logging():
+def configure_logger():
     logger = logging.getLogger()
 
     if logger.handlers:
@@ -31,7 +31,7 @@ def configure_logging():
     file_handler.setFormatter(formatter)
 
     # console handler
-    console_handler = logging.streamHandler()
+    console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
 
