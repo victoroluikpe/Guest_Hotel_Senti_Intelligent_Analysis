@@ -9,7 +9,7 @@ from src.exception import MyException
 
 logging = configure_logger()
 def get_existing_model(experiment_name = experiment_name):
-    client = mlflowClient()
+    client = MlflowClient()
 
     experiment = client.get_experiment_by_name(experiment_name)
     if experiment is None:
