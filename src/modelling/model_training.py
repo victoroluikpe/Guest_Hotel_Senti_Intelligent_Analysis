@@ -44,13 +44,13 @@ class ModelTraining:
         results = trainer.evaluate()
         return results
 
-def model_trainer():# load dataset
-    train_dataset, test_dataset, label2id, id2label = DataProcessor()
-    training_engine = ModelTraining(train_dataset, test_dataset, label2id, id2label)
-    trainer = training_engine.train()
-    training_engine.model_evaluation(trainer) 
+# def model_trainer():# load dataset
+#      train_dataset, test_dataset, label2id, id2label = DataProcessor()
+#      training_engine = ModelTraining(train_dataset, test_dataset, label2id, id2label)
+#      trainer = training_engine.train()
+#      training_engine.model_evaluation(trainer) 
 
-model_trainer()
+# model_trainer()
     
     # to test the code goto data ingection and comment out # data_loader()
     # and use customer_review_data = pd.read_csv(copy path of 100 new dataset) 

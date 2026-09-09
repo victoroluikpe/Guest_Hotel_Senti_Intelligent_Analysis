@@ -5,7 +5,7 @@ from src.logger import configure_logger
 from src.exception import MyException
 from transformers import pipeline
 from src.utility.model_loader import get_existing_model_f1_score
-from config.constant import model_name, classification_model_name, training_args
+from config.constant import model_name, classification_model_name, training_args, experiment_name 
 from src.utility.mlflow_setup import setup_mlflow_connection
 
 from dotenv import load_dotenv
@@ -16,7 +16,7 @@ class ModelTracker:
     def __init__(self, experiment_name = experiment_name):
         try:
             setup_mlflow_connection()
-            self.experimentt = experiment_name
+            self.experiment_name = experiment_name
         except Exception as e:
             logging.error(f"error occured while initalizing mlflow {e}")
             raise MyException(e, sys)
@@ -25,7 +25,7 @@ class ModelTracker:
             new_f1 = metrics["eval_f1"] 
             old_f1 = get_existing_model_f1_score(self.experiment_name)
 
-            print(f"previous model f1 csore: {old_f1}")
+            print(f"previous model f1 score: {old_f1}")
             print(f"new model f1: {new_f1}")
 
             if old_f1 is None or new_f1 > old_f1:
@@ -57,7 +57,7 @@ class ModelTracker:
                 logging.info(f"new model and tokenizer have been registered in MLFLOW ")
 
             else:
-                logging.info(f"Model not pushed (performance didn"t improve)")
+                logging.info(f"Model not pushed (performance didnt improve)")
 
         except Exception as e:
             logging.error(f"error occured while pushing the model to mlflow {e}")

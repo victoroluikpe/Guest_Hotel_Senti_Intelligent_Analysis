@@ -3,7 +3,7 @@ import os
 import mlflow
 from dotenv import load_dotenv
 load_dotenv(override = True)
-from config.constant import DAGSHUHB_REPO, DAGSHUB_USERNAME, experiment_name
+from config.constant import DAGSHUB_REPO, DAGSHUB_USERNAME, experiment_name
 def setup_mlflow_connection():
     
 
