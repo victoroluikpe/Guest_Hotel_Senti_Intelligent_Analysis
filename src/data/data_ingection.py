@@ -91,11 +91,11 @@ class DataIngestion:
         self.engine.dispose()
 
 def data_loader():
-    # ingestion = DataIngestion()
-    # if not ingestion.test_connection():
-    #     raise SystemExit("unable to connect to the database ")
-    #customer_review_data = ingestion.data_merger()
-    customer_review_data = pd.read_csv(r"C:/Users/pc/Downloads/Guest_Hotel_Senti_Intelligent_Analysis/Testing_data_sample.csv")
+    ingestion = DataIngestion()
+    if not ingestion.test_connection():
+        raise SystemExit("unable to connect to the database ")
+    customer_review_data = ingestion.data_merger()
+    
     return customer_review_data
         
 

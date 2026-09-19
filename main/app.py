@@ -58,7 +58,7 @@ async def predict_batch(file: UploadFile = File(...)):
     """upload a csv with the review text column and get back prediction on all the csv file data """
     try:
         contents = await file.read()
-        df = pd.read_csv(io.stringIO(contents.decode("utf-8")))
+        df = pd.read_csv(io.StringIO(contents.decode("utf-8")))
 
         if 'review_text' not in df.columns:
             return {"error": "csv file must have the review_text column"}

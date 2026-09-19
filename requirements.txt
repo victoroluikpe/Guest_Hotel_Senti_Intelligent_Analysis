@@ -11,4 +11,4 @@ pandas
 numpy
 dotenv
 scikit-learn
--e  .
+
