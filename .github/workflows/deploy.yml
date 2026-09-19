@@ -11,39 +11,39 @@ jobs:
 
     steps:
 
-    - name: Checkout
-      uses: actions/checkout@4
+  - name: Checkout
+    uses: actions/checkout@4
 
-    - name: Login to Docker Hub
-      uses:docker/login-action@3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+  - name: Login to Docker Hub
+    uses:docker/login-action@3
+    with:
+      username: ${{ secrets.DOCKER_USERNAME }}
+      password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
-      run: |
-        docker build \
-          -t ${{ secrets.DOCKER_USERNAME}}/montra-backend-app:${{ github.sha}} .
+  - name: Build Docker image
+    run: |
+      docker build \
+        -t ${{ secrets.DOCKER_USERNAME}}/montra-backend-app:${{ github.sha}} .
 
-    - name: Push Docker image
-      run:  |
-        docker push \
-          ${{ secrets.DOCKER_USERNAME }}/montra-backend-app:${{ github.sha }}
+  - name: Push Docker image
+    run:  |
+      docker push \
+        ${{ secrets.DOCKER_USERNAME }}/montra-backend-app:${{ github.sha }}
 
-    - name: Deploy to EC2
-      run: |
-        mkdir -p ~/.ssh
+  - name: Deploy to EC2
+    run: |
+      mkdir -p ~/.ssh
 
-        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+      echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
 
-        chmod 600 ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
 
-        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-        ssh ${{ secrets.EC2_USER }}@{{ secrets.EC2_HOST }} << EOF
-          cd ~/app
+      ssh ${{ secrets.EC2_USER }}@{{ secrets.EC2_HOST }} << EOF
+        cd ~/app
 
-          export IMAGE_TAG=${{ github.sha }}
+        export IMAGE_TAG=${{ github.sha }}
 
-          ./run.sh
-        EOF 
+        ./run.sh
+      EOF 
